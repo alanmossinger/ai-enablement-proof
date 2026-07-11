@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.key
+credentials.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Data (large files — tracked via DVC or downloaded via scripts)
+data/raw/
+data/cache/
+*.parquet
+*.csv
+!data/README.md
+
+# Logs
+*.log
+logs/
+
+# Model artifacts
+models/*.pkl
+models/*.joblib
+models/*.pt
