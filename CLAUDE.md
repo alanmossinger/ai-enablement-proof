@@ -1,8 +1,3 @@
-# CLAUDE.md — Build Governance for AI-Assisted Development
-
-This file governs how Claude (and any AI assistant) participates in building this project.
-The meta-proof: the agent was built under the same discipline it enforces.
-
 ## Project Context
 
 AI-Enablement-Proof is a governed autonomous agent that monitors U.S. grid reliability
