@@ -9,11 +9,9 @@
 
 ---
 
-## 0. One-Paragraph Thesis (the "hire him" sentence)
+## 0. One-Paragraph Thesis
 
 > Most AI agent demos automate paperwork. This one watches the North American power grid, detects reliability stress hours before operators declare emergencies, drafts operator-grade advisories — and every single action passes through a codified governance gate with a full audit trail. Replayed against the last five years of real grid emergencies (Winter Storm Uri, Winter Storm Elliott, the recent heat domes), the agent's detection lead time **and its false-alarm rate** are measured, published, and reproducible from public federal data. **This is what "AI agent enablement" means when an operator builds it: autonomy you can audit.**
-
-The claim proven here is different from the rest of the portfolio. Forecast-to-Dispatch proved *"I can build a governed AI system that captures audited market value."* C-MAPSS proved *"I can wire governance into CI as enforceable gates."* AI-Enablement-Proof proves *"I can deploy an autonomous AI **agent** into a critical-infrastructure workflow — with guardrails, human-in-the-loop routing, evaluation, and audit — and show exactly where the autonomy boundary sits."* That is the literal job description of every VP AI Enablement seat in the market right now.
 
 **The headline engineered to survive a CEO's attention span:** *Winter Storm Uri caused ~$130B in damages and 246 deaths. AI-Enablement-Proof, backtested against only the public data available at the time, escalated to its highest alert tier [X] hours before ERCOT declared EEA3 — and the repo shows every governance gate each of those decisions passed through.* Everything in this project exists to make that sentence true, provable, and reproducible. [X] is whatever the honest number turns out to be.
 
@@ -220,7 +218,7 @@ Design language: dark background, one accent color per figure family, every figu
 
 ---
 
-## 10. Market Vocabulary (Write in the Industry's Language)
+## 10. Market Vocabulary
 
 Balancing authority (BA) · Energy Emergency Alert (EEA 1/2/3) · net load · reserve margin · operating reserves · firm load shed · interchange · ramping · duck curve · demand response (DR) · capacity adequacy · N-1 contingency · point-in-time / as-of data · human-in-the-loop (HITL) · blast radius · autonomy level · audit trail · model card · NIST AI RMF · EU AI Act risk tiering.
 
@@ -250,17 +248,6 @@ Balancing authority (BA) · Energy Emergency Alert (EEA 1/2/3) · net load · re
 | Scope creep into Capital-to-Production territory | Hard boundary: AI-Enablement-Proof = operations/reliability; C2P = capital allocation. They cross-reference, never merge |
 | "Toy project" perception | 7-day unattended live run + complete audit chains + required CI gates = production posture, stated explicitly |
 | Time competition with active interview processes | The Phase 6 + F2/F3/F4 milestone is a shippable interview artifact before full completion |
-
----
-
-## 13. Publication Sequence
-
-1. **Repo public** at end of Phase 7 (figures complete).
-2. **LinkedIn Post 1 — the concept:** F1 animation + the severed L5 rung. "An agent watching the whole grid — that is forbidden, in code, from acting alone."
-3. **LinkedIn Post 2 — the headline:** F2 + the Uri lead-time number + one-command reproduction instructions.
-4. **LinkedIn Post 3 — the governance story:** F3/F4. "The CI build fails if the agent tries to act autonomously."
-5. **LinkedIn Post 4 — the honesty post:** F7 false-alarm analysis. Contrarian, credible, discussion-generating — publish the segmentation before the challenge arrives.
-6. **Executive one-pager** extracted and versioned per audience (P&L-executive variant: workforce capacity + capital allocation framing, zero technical language).
 
 ---
 

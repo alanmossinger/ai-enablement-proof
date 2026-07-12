@@ -57,7 +57,7 @@ def _fetch_paginated(
             break
         all_records.extend(data)
 
-        total = body.get("response", {}).get("total", 0)
+        total = int(body.get("response", {}).get("total", 0))
         if len(all_records) >= total:
             break
 
@@ -154,7 +154,7 @@ def ingest_demand(
     by_key: dict[tuple[str, str], dict[str, float | None]] = {}
     for rec in records:
         ba = rec.get("respondent", "")
-        period = rec.get("period", "")
+        period = _normalize_period(rec.get("period", ""))
         rtype = rec.get("type", "")
         value = rec.get("value")
 
@@ -202,7 +202,7 @@ def ingest_fuel_type(
 
     for rec in records:
         ba = rec.get("respondent", "")
-        period = rec.get("period", "")
+        period = _normalize_period(rec.get("period", ""))
         fuel = rec.get("fueltype", "")
         value = _safe_float(rec.get("value"))
 
@@ -238,7 +238,7 @@ def ingest_interchange(
     for rec in records:
         from_ba = rec.get("fromba", "")
         to_ba = rec.get("toba", "")
-        period = rec.get("period", "")
+        period = _normalize_period(rec.get("period", ""))
         value = _safe_float(rec.get("value"))
 
         conn.execute(
@@ -253,6 +253,15 @@ def ingest_interchange(
     logger.info("Ingested %d interchange records for %s to %s", count, start, end)
     conn.close()
     return count
+
+
+def _normalize_period(period: str) -> str:
+    """Convert EIA period format '2021-02-08T00' to DuckDB-compatible timestamp."""
+    # EIA returns 'YYYY-MM-DDTHH' — need 'YYYY-MM-DD HH:00:00'
+    if "T" in period and len(period) <= 13:
+        date_part, hour_part = period.split("T", 1)
+        return f"{date_part} {hour_part}:00:00"
+    return period
 
 
 def _safe_float(value: Any) -> float | None:

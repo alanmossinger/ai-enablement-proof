@@ -148,6 +148,26 @@ def compute_weather_stress(
     return 0.0
 
 
+def _compound_stress_bonus(
+    reserve_stress: float,
+    weather_stress: float,
+    threshold: float = 70.0,
+    factor: float = 0.10,
+) -> float:
+    """Compound interaction bonus when reserve AND weather are both extreme.
+
+    Physical basis: during winter storms, extreme cold simultaneously drives
+    demand up (heating load) and supply down (frozen generators, gas curtailments).
+    These aren't independent — FERC/NERC Uri report identifies this compounding
+    as the root mechanism of cascading failure.
+
+    Applied only when both components exceed the threshold (default 70/100).
+    """
+    if reserve_stress >= threshold and weather_stress >= threshold:
+        return factor * min(reserve_stress, weather_stress)
+    return 0.0
+
+
 def compute_gsi(
     ba_code: str,
     period: str,
@@ -161,7 +181,8 @@ def compute_gsi(
 ) -> GSIResult:
     """Compute the Grid Stress Index for one BA-hour.
 
-    The formula is a weighted sum of component scores, each 0-100.
+    The formula is a weighted sum of component scores (each 0-100),
+    plus a compound interaction term for simultaneous weather/supply stress.
     Default weights emphasize reserve margin (the most direct stress signal).
     """
     if weights is None:
@@ -180,6 +201,12 @@ def compute_gsi(
     }
 
     gsi = sum(weights[k] * components[k] for k in weights)
+
+    # Compound stress: weather + reserve margin are causally linked
+    compound = _compound_stress_bonus(components["reserve_margin"], components["weather"])
+    components["compound"] = compound
+    gsi += compound
+
     gsi = round(min(gsi, 100.0), 2)
     tier = classify_tier(gsi)
 

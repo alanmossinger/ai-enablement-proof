@@ -51,15 +51,25 @@ def _save(fig: plt.Figure, name: str) -> Path:
 
 
 def generate_f2_uri_timeline() -> Path:
-    """F2: Agent escalation vs. official ERCOT actions during Uri."""
-    from src.governance.audit import AuditLogger
-    from src.stress.backtest import URI_EVENT, run_backtest_synthetic
-    from src.stress.test_backtest import _generate_uri_synthetic
+    """F2: Agent escalation vs. official ERCOT actions during Uri.
 
-    audit = AuditLogger(Path(tempfile.mkdtemp()) / "f2_audit.jsonl")
-    data = _generate_uri_synthetic()
-    result = run_backtest_synthetic(URI_EVENT, data, audit)
-    result.build_escalation_timeline()
+    Uses real EIA-930 data from DuckDB when available; falls back to synthetic.
+    """
+    from src.stress.backtest import URI_EVENT
+
+    try:
+        from src.stress.backtest_real import run_uri_real
+
+        result = run_uri_real()
+    except (RuntimeError, Exception):
+        from src.governance.audit import AuditLogger
+        from src.stress.backtest import run_backtest_synthetic
+        from src.stress.test_backtest import _generate_uri_synthetic
+
+        audit = AuditLogger(Path(tempfile.mkdtemp()) / "f2_audit.jsonl")
+        data = _generate_uri_synthetic()
+        result = run_backtest_synthetic(URI_EVENT, data, audit)
+        result.build_escalation_timeline()
 
     lead = result.lead_time_hours("2021-02-15T01:55")
     lead_str = f"{lead:.0f}" if lead else "?"

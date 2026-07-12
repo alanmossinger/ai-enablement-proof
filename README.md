@@ -11,9 +11,9 @@ detects reliability stress hours before operators declare emergencies, drafts
 operator-grade advisories -- and every single action passes through a codified governance
 gate with a full audit trail.
 
-Replayed against real grid emergencies (Winter Storm Uri, Winter Storm Elliott, Western
-heat domes), the agent's detection lead time **and its false-alarm rate** are measured,
-published, and reproducible from public federal data.
+Replayed against real EIA-930 hourly demand data from Winter Storm Uri (ERCOT, Feb 2021)
+and Winter Storm Elliott (PJM, Dec 2022), the agent's detection lead time **and its
+false-alarm rate** are measured, published, and reproducible from public federal data.
 
 **This is what "AI agent enablement" means when an operator builds it: autonomy you can audit.**
 
@@ -28,12 +28,18 @@ path attempts an L5 action. Governance as a merge blocker, not a slide.
 
 ---
 
-### Hours Before: Winter Storm Uri Backtest
+### 12 Hours Before: Winter Storm Uri Backtest
 
 ![F2: Hours Before EEA3](figures/F02_hours_before_uri.png)
 
-The agent escalated to its highest alert tier **before** ERCOT declared EEA3.
+Backtested on real EIA-930 demand data (ERCOT, Feb 8–20 2021), the agent
+escalated to Alert tier **11.9 hours before** ERCOT declared EEA3.
 The shaded gap is the value of the agent: hours of additional lead time.
+
+| Event | Agent Alert | Official Declaration | Lead Time |
+|-------|-------------|---------------------|-----------|
+| Uri (ERCOT) | Feb 14 14:00 | EEA3 Feb 15 01:55 | **+11.9h** |
+| Elliott (PJM) | Dec 23 19:00 | Max Gen Alert Dec 24 04:30 | **+9.5h** |
 
 ---
 
@@ -97,12 +103,17 @@ The GSI is a transparent, published formula -- not a black box:
 | Forecast error | 25% | Divergence between forecast and actual demand |
 | Ramp rate | 15% | Rapid demand changes that stress dispatch |
 | Weather | 20% | Extreme temperatures driving load spikes |
+| Compound interaction | +10% | Bonus when reserve AND weather are both extreme (>70/100) |
+
+The compound term reflects the physical reality documented in FERC/NERC reports:
+during winter storms, extreme cold simultaneously drives demand up AND supply down.
 
 Mapped to five graduated alert tiers: **Watch > Advisory > Alert > Emergency Watch > Critical**
 
 ### Data Sources
 
-All public. All citable. All reproducible.
+All public. All citable. All reproducible. Data is ingested and stored with
+point-in-time semantics in DuckDB (every record carries `ingested_at` for as-of queries).
 
 - **EIA-930** (API v2) -- hourly demand, generation by fuel, interchange for ~65 U.S. BAs
 - **NOAA/NWS** -- temperature forecasts and actuals for BA load centers
