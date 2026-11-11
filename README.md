@@ -1,12 +1,14 @@
 # AI-Enablement-Proof
 
+[![CI](https://github.com/alanmossinger/ai-enablement-proof/actions/workflows/ci.yml/badge.svg)](https://github.com/alanmossinger/ai-enablement-proof/actions/workflows/ci.yml)
+
 ## A Governed Autonomous Agent for Grid Reliability Across the U.S. Power System
 
 *Autonomy you can audit. Govern the machine, or the machine governs you.*
 
 ---
 
-Most AI agent demos automate paperwork. This one watches the North American power grid,
+This agent watches the North American power grid,
 detects reliability stress hours before operators declare emergencies, drafts
 operator-grade advisories -- and every single action passes through a codified governance
 gate with a full audit trail.
@@ -65,7 +67,7 @@ overly broad, or improperly escalated actions -- and the blocks are logged too.
 
 ![F7: Crying Wolf, Measured](figures/F07_crying_wolf.png)
 
-Nobody publishes their false positives. We do.
+False positives are published here alongside the detections.
 An agent that cries wolf is a governance failure; the false-alarm rate is a
 *feature* of this project, not a weakness to hide.
 
@@ -76,7 +78,7 @@ An agent that cries wolf is a governance failure; the false-alarm rate is a
 ![F11: Baseline Humility](figures/F11_baseline_humility.png)
 
 Regions where the simple LightGBM model wins over the more complex temporal model
-are highlighted, not hidden. Anti-hype credibility.
+are highlighted, not hidden.
 
 ---
 
@@ -168,5 +170,5 @@ This repo includes a complete AI enablement operating model (`/enablement`):
 
 ---
 
-*Built by [Alan Mossinger](https://github.com/alanmossinger).
+*Built by [Alan Mössinger](https://github.com/alanmossinger).
 See [PROJECT_PLAN.md](PROJECT_PLAN.md) for the full build plan.*
